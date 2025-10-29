@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katana God Blaster Survival</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        canvas {
+            border: 2px solid #fff;
+            background-color: #111;
+        }
+        #gui {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .bar {
+            width: 200px;
+            height: 20px;
+            border: 2px solid #fff;
+            background-color: #333;
+        }
+        .fill {
+            height: 100%;
+            background-color: #f00;
+            transition: width 0.3s;
+        }
+        #timer {
+            font-size: 18px;
+        }
+        #weapon {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <div id="gui">
+        <div>Health: <div class="bar"><div id="healthFill" class="fill" style="width: 100%;"></div></div></div>
+        <div>Time Progress: <div class="bar"><div id="timeFill" class="fill" style="width: 0%;"></div></div></div>
+        <div id="timer">Time: 5:00</div>
+        <div id="weapon">Weapon: Rifle</div>
+        <div>Controls: WASD to move, Mouse to aim/shoot, 1-5 to switch weapons</div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const healthFill = document.getElementById('healthFill');
+        const timeFill = document.getElementById('timeFill');
+        const timerEl = document.getElementById('timer');
+        const weaponEl = document.getElementById('weapon');
+
+        // Game state
+        let gameTime = 300; // 5 minutes in seconds
+        let startTime = Date.now();
+        let health = 1000;
+        let maxHealth = 1000;
+        let gameOver = false;
+
+        // Weapons
+        const weapons = {
+            1: { name: 'Rifle', damage: 100, fireRate: 200, range: 300, color: '#00f' },
+            2: { name: 'Minigun', damage: 50, fireRate: 50, range: 200, color: '#0f0' },
+            3: { name: 'RPG', damage: 500, fireRate: 1000, range: 400, color: '#f80' },
+            4: { name: 'Katana', damage: 200, fireRate: 500, range: 50
